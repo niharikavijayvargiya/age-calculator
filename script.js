@@ -7,12 +7,19 @@ function calculateAge() {
 
     const birthDateObj = new Date(birthdate);
     const today = new Date();
-    let age = today.getFullYear() - birthDateObj.getFullYear();
-    const monthDifference = today.getMonth() - birthDateObj.getMonth();
+    let ageYears = today.getFullYear() - birthDateObj.getFullYear();
+    let ageMonths = today.getMonth() - birthDateObj.getMonth();
+    let ageDays = today.getDate() - birthDateObj.getDate();
 
-    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDateObj.getDate())) {
-        age--;
+    if (ageDays < 0) {
+        ageMonths--;
+        ageDays += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
     }
 
-    document.getElementById('result').innerText = `You are ${age} years old.`;
+    if (ageMonths < 0) {
+        ageYears--;
+        ageMonths += 12;
+    }
+
+    document.getElementById('result').innerText = `You are ${ageYears} years, ${ageMonths} months, and ${ageDays} days old.`;
 }
